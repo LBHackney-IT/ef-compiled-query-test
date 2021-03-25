@@ -4,19 +4,19 @@ setup:
 
 .PHONY: build
 build:
-	docker-compose build base-api
+	docker-compose build ef-test-api
 
 .PHONY: serve
 serve:
-	docker-compose build base-api && docker-compose up base-api
+	docker-compose build ef-test-api && docker-compose up ef-test-api
 
 .PHONY: shell
 shell:
-	docker-compose run base-api bash
+	docker-compose run ef-test-api bash
 
 .PHONY: test
 test:
-	docker-compose up test-database & docker-compose build base-api-test && docker-compose up base-api-test
+	docker-compose up test-database & docker-compose build ef-test-api-test && docker-compose up ef-test-api-test
 
 .PHONY: lint
 lint:
