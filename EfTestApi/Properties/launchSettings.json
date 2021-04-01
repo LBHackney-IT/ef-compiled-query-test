@@ -11,13 +11,14 @@
   "profiles": {
     "base_api": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "api/v1/healthcheck/ping",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DynamoDb_LocalMode": "true",
-        "DynamoDb_LocalServiceUrl": "http://localhost:8000"
+        "DynamoDb_LocalServiceUrl": "http://localhost:8000",
+        "CONNECTION_STRING": "Host=ef-test-database-sp.chrsicf7m9wc.eu-west-2.rds.amazonaws.com;Port=5432;Database=dvdrental;Username=postgres;Password=mypassword"
       }
     }
   }

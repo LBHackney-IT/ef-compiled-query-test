@@ -16,7 +16,8 @@ namespace EfTestApi.V1.UseCase
 
         public ResponseObjectList Execute()
         {
-            return new ResponseObjectList { ResponseObjects = _gateway.GetAll().ToResponse() };
+            var gwResponse = _gateway.GetAll();
+            return new ResponseObjectList { Customers = gwResponse.ToResponse() };
         }
     }
 }

@@ -16,7 +16,7 @@ namespace EfTestApi.Tests.V1.Infrastructure
             DatabaseContext.Add(databaseEntity);
             DatabaseContext.SaveChanges();
 
-            var result = DatabaseContext.DatabaseEntities.ToList().FirstOrDefault();
+            var result = DatabaseContext.CustomerEntities.ToList().FirstOrDefault();
 
             Assert.AreEqual(result, databaseEntity);
         }

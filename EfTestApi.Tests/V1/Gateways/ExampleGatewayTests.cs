@@ -33,18 +33,16 @@ namespace EfTestApi.Tests.V1.Gateways
         [Test]
         public void GetEntityByIdReturnsTheEntityIfItExists()
         {
-            var entity = _fixture.Create<Entity>();
+            var entity = _fixture.Create<CustomerEntity>();
             var databaseEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
 
-            DatabaseContext.DatabaseEntities.Add(databaseEntity);
+            DatabaseContext.CustomerEntities.Add(databaseEntity);
             DatabaseContext.SaveChanges();
 
-            var response = _classUnderTest.GetEntityById(databaseEntity.Id);
+            var response = _classUnderTest.GetEntityById(databaseEntity.CustomerId);
 
-            databaseEntity.Id.Should().Be(response.Id);
-            databaseEntity.CreatedAt.Should().BeSameDateAs(response.CreatedAt);
+            databaseEntity.CustomerId.Should().Be(response.CustomerId);
+            databaseEntity.CreateDate.Should().BeSameDateAs(response.CreateDate);
         }
-
-        //TODO: Add tests here for the get all method.
     }
 }

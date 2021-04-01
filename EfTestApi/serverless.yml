@@ -1,13 +1,14 @@
-service: your-api-name
+service: efc-test-api
 provider:
   name: aws
   runtime: dotnetcore3.1
   memorySize: 2048
+  timeout: 15
   tracing:
     lambda: true
     apiGateway: true
-  vpc: ${self:custom.vpc.${opt:stage}}
-  stage: ${opt:stage}
+  vpc: ${self:custom.vpc.development}
+  stage: development
   # TODO: Enable this line if DynamoDb is in use
   #account: ${opt:account}
   region: eu-west-2
@@ -22,7 +23,7 @@ provider:
 
 package:
 # TODO: Rename zipfile in build.sh and build.cmd to match this
-  artifact: ./bin/release/netcoreapp3.1/your-api-name.zip
+  artifact: ./bin/release/netcoreapp3.1/efcq-test-api.zip
 
 functions:
   baseApi:
@@ -30,9 +31,7 @@ functions:
     handler: EfTestApi::EfTestApi.LambdaEntryPoint::FunctionHandlerAsync
     role: lambdaExecutionRole
     environment:
-# TODO: Create ssm variables for this API's postgres mirror then rename ef-test-api below to match api name
-# TODO: Remove this line if DynamoDb is being used
-      CONNECTION_STRING: Host=${ssm:/ef-test-api/${self:provider.stage}/postgres-hostname};Port=${ssm:/ef-test-api/${self:provider.stage}/postgres-port};Database=ef-test-api-mirror;Username=${ssm:/ef-test-api/${self:provider.stage}/postgres-username};Password=${ssm:/ef-test-api/${self:provider.stage}/postgres-password}
+      CONNECTION_STRING: ${ssm:/ef-test-api/${self:provider.stage}/connection-string}
     events:
       - http:
           path: /{proxy+}
@@ -95,14 +94,8 @@ resources:
 custom:
   vpc:
     development:
+      securityGroupIds:
+        - sg-0525e1742fc163c02
       subnetIds:
-        - subnet-0deabb5d8fb9c3446
-        - subnet-000b89c249f12a8ad
-    staging:
-      subnetIds:
-        - subnet-06d3de1bd9181b0d7
-        - subnet-0ed7d7713d1127656
-    production:
-      subnetIds:
-        - subnet-01d3657f97a243261
-        - subnet-0b7b8fea07efabf34
+        - subnet-0b80baa7e9b845c9a
+        - subnet-075c844707f98cba3

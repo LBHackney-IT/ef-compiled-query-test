@@ -15,14 +15,14 @@ namespace EfTestApi.V1.Gateways
             _dynamoDbContext = dynamoDbContext;
         }
 
-        public List<Entity> GetAll()
+        public List<CustomerEntity> GetAll()
         {
-            return new List<Entity>();
+            return new List<CustomerEntity>();
         }
 
-        public Entity GetEntityById(int id)
+        public CustomerEntity GetEntityById(int id)
         {
-            var result = _dynamoDbContext.LoadAsync<DatabaseEntity>(id).GetAwaiter().GetResult();
+            var result = _dynamoDbContext.LoadAsync<CustomerDbEntity>(id).GetAwaiter().GetResult();
             return result?.ToDomain();
         }
     }

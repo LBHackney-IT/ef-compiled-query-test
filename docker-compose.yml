@@ -9,21 +9,13 @@ services:
     ports:
       - 3000:3000
     environment:
-      - CONNECTION_STRING=Host=dev-database;Port=5432;Database=testdb;Username=postgres;Password=mypassword
+      - CONNECTION_STRING=Host=ef-test-database-sp.chrsicf7m9wc.eu-west-2.rds.amazonaws.com;Port=5432;Database=dvdrental;Username=postgres;Password=mypassword
 # TODO: If using DynamoDb remove the line above and uncomment the section below.
 #      - DynamoDb_LocalMode=true
 #      - DynamoDb_LocalServiceUrl=http://dynamodb-database:8000
 #      - AWS_REGION=eu-west-2
 #      - AWS_ACCESS_KEY_ID=local
 #      - AWS_SECRET_ACCESS_KEY=local
-    links:
-      - dev-database
-  dev-database:
-    env_file:
-      - database.env
-    image: postgres:12
-    volumes:
-      - ./database:/docker-entrypoint-initdb.d
 
   ef-test-api-test:
     image: ef-test-api-test

@@ -6,19 +6,19 @@ namespace EfTestApi.Tests.V1.Helper
 {
     public static class DatabaseEntityHelper
     {
-        public static DatabaseEntity CreateDatabaseEntity()
+        public static CustomerDbEntity CreateDatabaseEntity()
         {
-            var entity = new Fixture().Create<Entity>();
+            var entity = new Fixture().Create<CustomerEntity>();
 
             return CreateDatabaseEntityFrom(entity);
         }
 
-        public static DatabaseEntity CreateDatabaseEntityFrom(Entity entity)
+        public static CustomerDbEntity CreateDatabaseEntityFrom(CustomerEntity entity)
         {
-            return new DatabaseEntity
+            return new CustomerDbEntity
             {
-                Id = entity.Id,
-                CreatedAt = entity.CreatedAt,
+                CustomerId = entity.CustomerId,
+                CreateDate = entity.CreateDate
             };
         }
     }

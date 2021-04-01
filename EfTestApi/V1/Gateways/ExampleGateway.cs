@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using EfTestApi.V1.Domain;
 using EfTestApi.V1.Factories;
 using EfTestApi.V1.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace EfTestApi.V1.Gateways
 {
@@ -15,16 +18,31 @@ namespace EfTestApi.V1.Gateways
             _databaseContext = databaseContext;
         }
 
-        public Entity GetEntityById(int id)
+        public CustomerEntity GetEntityById(int id)
         {
-            var result = _databaseContext.DatabaseEntities.Find(id);
-
+            var result = _databaseContext.CustomerEntities.Find(id);
             return result?.ToDomain();
         }
 
-        public List<Entity> GetAll()
+        public List<CustomerEntity> GetAll()
         {
-            return new List<Entity>();
+            // var customers = _databaseContext.CustomerEntities
+            //     .Include(ce => ce.Rentals)
+            //     .Include(ce => ce.Payments)
+            //     .OrderBy(c => c.LastName)
+            //     .ThenBy(c => c.FirstName)
+            //     .Take(100);
+
+            var customerQuery = EF.CompileQuery((DatabaseContext context) => context.CustomerEntities
+                .Include(ce => ce.Rentals)
+                .Include(ce => ce.Payments)
+                .OrderBy(c => c.LastName)
+                .ThenBy(c => c.FirstName)
+                .Take(100));
+            var customers = customerQuery(_databaseContext);
+
+            return customers
+                .Select(ce => ce.ToDomain()).ToList();
         }
     }
 }

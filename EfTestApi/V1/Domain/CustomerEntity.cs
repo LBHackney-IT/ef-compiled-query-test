@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace EfTestApi.V1.Boundary.Response
+namespace EfTestApi.V1.Domain
 {
-    public class CustomerRO
+    public class CustomerEntity
     {
         public int CustomerId { get; set; }
         public int StoreId { get; set; }
@@ -14,11 +13,11 @@ namespace EfTestApi.V1.Boundary.Response
         public int AddressId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdated { get; set; }
-        public ICollection<RentalRO> Rentals { get; set; }
-        public ICollection<PaymentRO> Payments { get; set; }
+        public ICollection<RentalEntity> Rentals { get; set; }
+        public ICollection<PaymentEntity> Payments { get; set; }
     }
 
-    public class RentalRO
+    public class RentalEntity
     {
         public int RentalId { get; set; }
         public DateTime RentalDate { get; set; }
@@ -29,7 +28,7 @@ namespace EfTestApi.V1.Boundary.Response
         public DateTime LastUpdated { get; set; }
     }
 
-    public class PaymentRO
+    public class PaymentEntity
     {
         public int PaymentId { get; set; }
         public int CustomerId { get; set; }

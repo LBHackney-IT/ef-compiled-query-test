@@ -1,3 +1,4 @@
+using System;
 using EfTestApi.V1.Boundary.Response;
 using EfTestApi.V1.UseCase.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -7,7 +8,7 @@ namespace EfTestApi.V1.Controllers
 {
     [ApiController]
     //TODO: Rename to match the APIs endpoint
-    [Route("api/v1/residents")]
+    [Route("api/v1/customers")]
     [Produces("application/json")]
     [ApiVersion("1.0")]
     //TODO: rename class to match the API name
@@ -31,6 +32,7 @@ namespace EfTestApi.V1.Controllers
         [HttpGet]
         public IActionResult ListContacts()
         {
+            Console.WriteLine("Request for customer information");
             return Ok(_getAllUseCase.Execute());
         }
 
@@ -39,7 +41,7 @@ namespace EfTestApi.V1.Controllers
         /// </summary>
         /// <response code="200">...</response>
         /// <response code="404">No ? found for the specified ID</response>
-        [ProducesResponseType(typeof(ResponseObject), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CustomerRO), StatusCodes.Status200OK)]
         [HttpGet]
         //TODO: rename to match the identifier that will be used
         [Route("{yourId}")]

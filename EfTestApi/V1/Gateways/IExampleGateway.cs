@@ -5,8 +5,8 @@ namespace EfTestApi.V1.Gateways
 {
     public interface IExampleGateway
     {
-        Entity GetEntityById(int id);
+        CustomerEntity GetEntityById(int id);
 
-        List<Entity> GetAll();
+        List<CustomerEntity> GetAll();
     }
 }
